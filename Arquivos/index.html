@@ -7,13 +7,132 @@
     <title>Maratona</title>
 </head>
 <body>
-    <h2>Maratona</h2>
+    <h2>Help para a professora Alice</h2>
+    <h4>cadastro de alunos</h4>
+    Entre com o nome do aluno: <br>
+    <input id="inp_nome" type="text"> <br>
+    entre com a nota da AC-1 <br>
+    <input type="text" name="" id="nota1"> <br>
+    entre com a nota da AC-2 <br>
+    <input type="text" name="" id="nota2"> <br>
+    entre com a nota da AC-3 <br>
+    <input type="text" name="" id="nota3"> <br> <br>
+    <button onclick="cadastrar()">cadastrar</button>
+
+    <div id="mostraNota"></div>
+
+<br><br><br><br>
+
+    <h3>consultar intervalo da nota da AC-3</h3>
+        Nota de: <input type="number" id="min_intervalo_ac3"> até: <input type="text" name="" id="max_intervalo_ac3">
+        <button onclick="intervalo_ac3()">Buscar intervalo</button>
+        <div id="div_intervalo_ac3"></div>
+    <br><br><br>
     
+    <h3>Consulta da sequência de alunos</h3>
+        sequência de <input type="number" id="inp_min_sequencia"> até <input type="text" name="" id="inp_max_sequencia">
+        <button onclick="sequencia()">Buscar sequencia</button>
+        <div id="div_sequencia"></div>
+    <br><br><br>
+
+    <h3>Consulta de Alunos por nome</h3>
+        Nome de: <input type="text" id="inp_nome_consulta"> até: <input type="text" id="inp_nome_consulta2">
+        <button onclick="consulta_nome()">consultar</button>
+        <div id="div_consulta_Nome"></div>
+
 </body>
 </html>
 <script>
+    var sequenciaNome = 0;
+    var intervaloNome = 0;
+    var intervalonome2 = 0;
+var intervalo = 0;
+var vt_nome = [];
+var vt_nota1 = [];
+var vt_nota2 = [];
+var vt_nota3 = [];
 
+    function cadastrar(){
+    var ax_nome = inp_nome.value; 
+    var ax_nota1 = nota1.value;
+    var ax_nota2 = nota2.value;
+    var ax_nota3 = nota3.value;
 
+        if (ax_nome == ``){
+            alert(`Insira um nome`)
+        }else if (ax_nota1 == ``){
+            alert(`campo nota AC-1 vazio`)
+        }else if (ax_nota1 < 0 || ax_nota1 > 10){
+            alert(`Insira uma nota entre 0 e 10 no campo AC-1`)
+        }else if (ax_nota2 == ``){
+            alert(`campo nota AC-2 vazio`)  
+        }else if (ax_nota2 < 0 || ax_nota2 > 10){
+            alert(`Insira uma nota entre 0 e 10 no campo AC-2`)
+        }else if (ax_nota3 == ``){
+            alert(`campo nota AC-3 vazio`)
+        }else if (ax_nota3 < 0 || ax_nota3 > 10){
+            alert(`Insira uma nota entre 0 e 10 no campo AC-3`)
+        }
+        else {
+            vt_nome.push(ax_nome);
+            vt_nota1.push(Number(ax_nota1));
+            vt_nota2.push(Number(ax_nota2));
+            vt_nota3.push(Number(ax_nota3));
 
+            inp_nome.value = "";
+            nota1.value = "";
+            nota2.value = "";
+            nota3.value = "";
+
+            mostraNota.innerHTML = "";
+            //verificar
+            for (var i = 0; i <vt_nome.length; i++){
+                mostraNota.innerHTML += `As notas do aluno ${vt_nome[i]} são, respectivamente: AC1:${vt_nota1[i]}, AC2:${vt_nota2[i]}, AC3:${vt_nota3[i]} <br>`;
+            }
+        }
+    }
+    function intervalo_ac3(){
+    var min = min_intervalo_ac3.value;
+    var max = max_intervalo_ac3.value;
     
+
+    // div_intervalo_ac3.innerHTML = '';
+      if ((min < 0 || min > 10) && (max < 0 || max > 10 )) {
+        alert("insira um intervalo válido");
+      }
+      else {
+        for (var i = 0; i<vt_nota3.length; i++) {
+            div_intervalo_ac3.innerHTML += `${vt_nota3[intervalo]} <br>`;
+            intervalo++
+        }
+    }
+}
+    function sequencia(){
+        if (vt_nome == -1) {
+            alert("não ha alunos cadastrados nesse intervalo")
+        } else{
+           for (let i = 0; i < vt_nome.length; i++) {
+               div_sequencia.innerHTML = `${vt_nome[intervaloNome]}<br>`;
+               intervaloNome++
+               
+           }
+        }
+    }
+
+    function consulta_nome(){
+       var nome = inp_nome_consulta.value
+       var nome_ult = inp_nome_consulta2.value
+
+        if (vt_nome == -1){
+        alert("não há usuarios cadastrados")
+        }else{
+         for (let i = 0; i < vt_nome.length; i++) {
+            div_consulta_Nome.innerHTML += `${vt_nome[vt_nome.length(nome) - 1]}`
+             
+         }
+        }
+
+    }
+
+
 </script>
